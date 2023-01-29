@@ -1,0 +1,41 @@
+{% extends 'layouts/base.html' %} {% block content %}
+<div class="container">
+  <h1 class="text-center">Pending Tasks</h1>
+  <div class="task-container">
+    {% for task in tasks %} {% if not task.datecompleted %}
+    <a
+      href="{% url 'task_detail' task.id %}"
+      class="card text-center card-container text-decoration-none"
+    >
+      <div class="card-body">
+        <h4 class="card-title">
+          {% if task.important %}
+          <strong>{{ task.title }}</strong>
+          {% else %} {{ task.title }} {% endif %}
+        </h4>
+        <p class="card-text">{{ task.description }}</p>
+      </div> </a
+    >{% endif %}{% endfor %}
+  </div>
+  <hr />
+  <h1 class="text-center">Completed Tasks</h1>
+  <div class="task-container">
+    {% for task in tasks %} {% if task.datecompleted %}
+    <a
+      href="{% url 'task_detail' task.id %}"
+      class="card text-center card-container text-decoration-none"
+    >
+      <div class="card-body">
+        <h4 class="card-title">
+          {% if task.important %}
+          <strong>{{ task.title }}</strong>
+          {% else %} {{ task.title }} {% endif %}
+        </h4>
+        <p class="card-text">{{ task.description }}</p>
+        <p class="card-text">{{ task.datecompleted|date:'M j Y:i' }}</p>
+      </div>
+    </a>
+    {% endif %}{% endfor %}
+  </div>
+</div>
+{% endblock %}

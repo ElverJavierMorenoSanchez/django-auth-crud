@@ -1,0 +1,28 @@
+{% extends 'layouts/base.html' %} {% block content %}
+
+<h1 class="text-center">TASK DETAIL</h1>
+
+<form class="form-control w-50 m-auto" method="post">
+  {% csrf_token %} {% if error %}
+  <div class="alert alert-danger" role="alert">{{ error }}</div>
+  {% endif %} {{ form.as_div }}
+  <button type="submit" class="btn btn-primary">Update</button>
+</form>
+<form
+  action="{% url 'task_complete' task.id %}"
+  method="post"
+  class="d-flex justify-content-center"
+>
+  {% csrf_token %}
+  <button type="submit" class="btn btn-success">Complete</button>
+</form>
+<form
+  action="{% url 'task_delete' task.id %}"
+  method="post"
+  class="d-flex justify-content-center"
+>
+  {% csrf_token %}
+  <button type="submit" class="btn btn-danger">Delete</button>
+</form>
+
+{% endblock %}
